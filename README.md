@@ -20,7 +20,7 @@ To deploy your files:
 ## Dependencies
 
 + Python 3
-+ [colors]:(https://github.com/verigak/colors)
++ [colors](https://github.com/verigak/colors)
 
 ## About
 
