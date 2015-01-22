@@ -1,0 +1,103 @@
+snippet begin
+	;=================================================
+	;  Author: Feng Zhu
+	;    Date: 
+	; Purpose: 
+	;=================================================
+	load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_code.ncl"
+	load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/gsn_csm.ncl"
+	load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/contributed.ncl"
+	load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/shea_util.ncl"
+	load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/skewt_func.ncl"
+	load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/wind_rose.ncl"
+	load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/popRemap.ncl"
+	load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/diagnostics_cam.ncl"
+	load "$NCARG_ROOT/lib/ncarg/nclscripts/csm/ccm_func.ncl"
+	
+	begin
+	;=================================================
+	${1:;maincode}
+	
+	;=================================================
+	end
+	;=================================================
+
+snippet wks
+	wks = gsn_open_wks("pdf","${1:plot_name}")
+	gsn_define_colormap(wks,"precip4_11lev")
+
+snippet readbin
+	setfileoption("bin","ReadByteOrder","BigEndian")
+	data = cbinread("${1:filename}",(/${2:dims}/),"${3:datatype}")
+
+snippet readasc
+	${1:varname} = asciiread("${2:filename}",(/${3:dims}/),"${4:datatype}")
+
+snippet writebin
+	setfileoption("bin","WriteByteOrder","BigEndian")
+	cbinwrite("${1:filename}",${2:varname})
+
+snippet writeasc
+	write_table("${1:filename}","w",${2:varname},"${3:format}")
+
+snippet print
+	print_table([/${1:varname}/],"${2:format}")
+
+snippet res
+	res             = True
+	res@gsnMaximize = True
+	res@gsnDraw     = True
+	res@gsnFrame    = True
+	res@vpWidthF    = 1.0
+	res@vpHeightF   = 1.0
+
+snippet legend
+	res@xyExplicitLegendLabels = (/" 200m"," 100m"," 50m"/)
+	res@lgPerimOn              = True
+	res@pmLegendDisplayMode    = "Always"
+	res@pmLegendWidthF         = 0.2
+	res@pmLegendHeightF        = 0.2
+	res@pmLegendOrthogonalPosF = -0.70
+	res@pmLegendParallelPosF   = 0.15
+	res@lgLabelFontHeightF     = 0.015
+
+snippet ti
+	res@tiYAxisString       = "${1:Y-axis title name}"
+	res@tiXAxisString       = "${2:X-axis title name}"  
+	res@tiXAxisFontHeightF  = 0.025
+	res@tiYAxisFontHeightF  = 0.025
+
+snippet tm
+	res@tmXTOn                    = False
+	res@tmYROn                    = False
+	res@tmYLLabelFontHeightF      = 0.025
+	res@tmXBLabelFontHeightF      = 0.025
+	res@tmYRLabelFontHeightF      = 0.025
+	res@tmXTLabelFontHeightF      = 0.025
+
+snippet tr
+	res@trYMaxF = ${1:y_max}
+	res@trYMinF = ${2:y_min}
+	res@trXMaxF = ${3:x_max}
+	res@trXMinF = ${4:x_min}
+
+snippet xy
+	res@xyDashPatterns         = (/2,1,0/)
+	res@xyLineThicknesses      = (/2.,2.,2./)
+	res@xyLineColors           = (/"black","red","blue"/)
+	res@xyMarkLineModes        = (/"MarkLines","MarkLines","MarkLines"/)
+	res@xyMarkers              = (/ 7, 4, 9/)
+	res@xyMarkerSizeF          = (/ 0.02, 0.02, 0.02 /)
+	res@xyMarkerColors         = (/"black","red","blue"/)
+
+snippet pres
+	pres             = True
+	pres@gsnMaximize = True
+	pres@amJust      = "TopLeft"
+	pres@gsnPanelFigureStrings = (/"a)","b)","c)","d)"/)
+	pres@gsnPanelFigureStringsFontHeightF = 0.02
+	pres@gsnPanelLeft     = 0.05
+	pres@gsnPanelRight    = 0.95
+	pres@gsnPanelBottom   = 0.05
+	pres@gsnPanelTop      = 0.95
+
